@@ -11,3 +11,6 @@
 /log/*
 !/log/.keep
 /tmp
+
+#Ignore all the files in .idea/ created by ruby mine
+/.idea/*
