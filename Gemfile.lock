@@ -100,6 +100,3 @@ DEPENDENCIES
   mysql2 (= 0.3.18)
   rails (= 4.2.4)
   rb-readline (= 0.5.3)
-
-BUNDLED WITH
-   1.10.6
