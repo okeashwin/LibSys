@@ -1,0 +1,27 @@
+<h1>Library Members</h1>
+<p>Active Members</p>
+
+<% if (!@active_members.any?)%>
+             No member enrolled to be displayed. You better be good with your PR skills
+<% else %>
+<%= form_tag :action => 'delete_members' do %>
+<table class="tables">
+  <tr>
+    <th>selections</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Checkouts</th>
+  </tr>
+  <% @active_members.each do |m|%>
+  <tr>
+    <td><%= check_box_tag 'to_be_deleted_members[]', m.id %></td>
+    <td><%=  m.name %></td>
+    <td><%=  m.email %></td>
+    <td>Nil</td>
+  </tr>
+  <% end %>
+</table>
+    <%= submit_tag "Delete" %>
+<% end %>
+<%end%>
+<% @active_members.inspect %>
