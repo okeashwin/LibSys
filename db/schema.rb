@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150913155408) do
+ActiveRecord::Schema.define(version: 20150916004245) do
 
   create_table "books", force: :cascade do |t|
     t.string   "isbn",        limit: 255, null: false
@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 20150913155408) do
   add_index "books", ["isbn"], name: "index_books_on_isbn", unique: true, using: :btree
 
   create_table "reservations", force: :cascade do |t|
-    t.integer  "users_id",     limit: 4, null: false
-    t.integer  "books_id",     limit: 4, null: false
+    t.integer  "user_id",      limit: 4, null: false
+    t.integer  "book_id",      limit: 4, null: false
     t.datetime "dateIssued",             null: false
     t.datetime "dateReturned",           null: false
     t.datetime "created_at",             null: false
