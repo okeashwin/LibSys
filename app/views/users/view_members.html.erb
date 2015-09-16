@@ -17,11 +17,11 @@
     <td><%= check_box_tag 'to_be_deleted_members[]', m.id %></td>
     <td><%=  m.name %></td>
     <td><%=  m.email %></td>
-    <td>Nil</td>
+    <td><%= m.reservation_count%></td>
   </tr>
   <% end %>
 </table>
     <%= submit_tag "Delete" %>
 <% end %>
+   <%= @active_members.inspect%>
 <%end%>
-<% @active_members.inspect %>
