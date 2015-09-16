@@ -16,4 +16,4 @@ class UsersController < ApplicationController
     redirect_to action: 'view_members'
   end
 end
-#SELECT *, count(book_id) as reservation_count FROM `users` LEFT JOIN reservations  ON users.id=reservations.user_id WHERE (isDeleted = 0 and role & 2 > 0) GROUP BY user_id
+
