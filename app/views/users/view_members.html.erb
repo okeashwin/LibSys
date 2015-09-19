@@ -1,7 +1,7 @@
 <h1>Library Members</h1>
 <p>Active Members</p>
 
-<% if (!@active_members.any?)%>
+<% if (!@active_members)%>
              No member enrolled to be displayed. You better be good with your PR skills
 <% else %>
 <%= form_tag :action => 'delete_members' do %>

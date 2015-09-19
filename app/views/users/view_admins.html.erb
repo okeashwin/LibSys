@@ -1,0 +1,24 @@
+<h1>List of Admins</h1>
+<p>Admins</p>
+
+<%= form_tag :action => :delete_admins do %>
+    <table class="tables">
+      <tr>
+        <th>selections</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Checkouts</th>
+      </tr>
+      <% @admins.each do |m|%>
+          <tr>
+            <td><%= check_box_tag 'to_be_deleted_admins[]', m.id %></td>
+            <td><%=  m.name %></td>
+            <td><%=  m.email %></td>
+            <td>Nil</td>
+          </tr>
+      <% end %>
+    </table>
+    <%= submit_tag "Delete" %>
+<% end %>
+<% #end%>
+<% # @active_members.inspect %>
