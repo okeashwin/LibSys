@@ -38,7 +38,8 @@ class UsersController < ApplicationController
   end
 
   def view_members
-    subquery = Reservation.select("user_id,count(book_id) as reservation_count").group('user_id')
+    subquery = Reservation.select("user_id,count(book_id) as reservation_count").where(:dateReturned =>nil).
+                          group('user_id')
     @active_members = User.select("users.*,reservation_count").
                       joins("LEFT JOIN ((#{subquery.to_sql}) as T) ON users.id=T.user_id").
                       where("isDeleted = ? and role & ? > 0",FALSE,User::IS_MEMBER)
@@ -50,7 +51,18 @@ class UsersController < ApplicationController
   end
   def delete_members
     del_user = User.where(id: params[:to_be_deleted_members])
-    del_user.update_all(isDeleted: TRUE)
+    del_user.each do |m|
+      if(m.role & User::IS_ADMIN >0)
+        m.update(:role => User::IS_ADMIN)
+      else
+        user_reservation = Reservation.where(:user_id => m.id,:dateReturned => nil)
+        if(user_reservation.any? )
+          flash[:notice] = "Some members had reservations,they were not deleted"
+        else
+          m.update(:isDeleted => TRUE)
+        end
+      end
+    end
     redirect_to action: 'view_members'
   end
 
