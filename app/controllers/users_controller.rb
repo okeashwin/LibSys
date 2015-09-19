@@ -31,12 +31,26 @@ class UsersController < ApplicationController
   end
 
   def delete_admins
-    @del_admin = User.where( id: params[:to_be_deleted_admins])
-    @del_admin.update_all(:isDeleted => TRUE)
-    flash[:notice] = "Delete Successful!!"
-    redirect_to(:action => 'view_admins')
-  end
+    del_admin = User.where( id: params[:to_be_deleted_admins])
 
+    del_admin.each do |a|
+      if (a.role & User::IS_MEMBER > 0)
+        a.update(:role => User::IS_MEMBER)
+      else
+        reservations = Reservation.where(:user_id => a.id,:dateReturned => NIL)
+
+        if(reservations.any?)
+          flash[:notice] = "Can't Delete. Return Checked out books first!!"
+        else
+          a.update(:isDeleted => TRUE)
+          flash[:notice] = "Delete Successful!!"
+
+        end
+      end
+      #@del_admin.update_all(:isDeleted => TRUE)
+    end
+    redirect_to(:action => 'view_admins')
+end
   def view_members
     subquery = Reservation.select("user_id,count(book_id) as reservation_count").where(:dateReturned =>nil).
                           group('user_id')
