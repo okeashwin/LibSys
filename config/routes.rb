@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :books
   get 'users/view_members'
 
   match ':controller(/:action(/:id))', :via => [ :get, :post]

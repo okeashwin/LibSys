@@ -123,6 +123,3 @@ DEPENDENCIES
   rb-readline (= 0.5.3)
   turbolinks
   tzinfo-data
-
-BUNDLED WITH
-   1.10.6
