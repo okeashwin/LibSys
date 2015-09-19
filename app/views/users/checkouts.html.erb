@@ -1,6 +1,7 @@
 <h1>Checkout History</h1>
 <p>User Id: <%= @user[0].id %></p>
 <p>User Name: <%= @user[0].name %></p>
+<%= @checkout_history.inspect%>
 <table class="tables">
   <tr>
     <th>ISBN</th>
@@ -15,7 +16,13 @@
     <td><%= m.name %></td>
     <td><%= m.authors %></td>
     <td><%= m.dateIssued %></td>
-    <td><%= m.dateReturned %></td>
+    <td>
+      <% if !m.dateReturned %>
+            <%= link_to 'return', {:action => 'return', :id => m.id}%>
+      <%else%>
+            <%= m.dateReturned %>
+      <%end%>
+    </td>
   </tr>
   <% end %>
 </table>

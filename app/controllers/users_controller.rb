@@ -46,7 +46,13 @@ class UsersController < ApplicationController
                           where(user_id: params[:userId]).
                          joins("JOIN books ON reservations.id=books.id")
     @user = User.select(:name, :id).where(id: params[:userId])
-    @user.inspect
+  end
+
+  def return
+     Reservation.update( params[:id], {:dateReturned =>  Time.now.getutc})
+    redirect_to action: 'checkouts'
+    #not passing params to checkout....THROWS ERROR
+    #change status in Book table
   end
 end
 
