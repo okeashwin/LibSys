@@ -5,9 +5,22 @@ class UsersController < ApplicationController
   end
 
   def create_admin
-    @admin = User.new(:name => params[:name], :email => params[:email], :password=> params[:password],:isDeleted=>FALSE,:role => User::IS_ADMIN)
-    #@admin = User.new(params[:admin],:isDeleted=>FALSE,:role => User::IS_ADMIN)
-    @admin.save
+
+    @admin = User.find_by_email(params[:email])
+
+    if(@admin)
+      if(@admin.role & User::IS_ADMIN  )
+        flash[:notice] = "Already an admin!! "
+      else
+        @admin.update_all(@admin[0].role |= User::IS_ADMIN)
+        flash[:notice] = "Added as an admin"
+      end
+    else
+      @admin = User.new(:name => params[:name], :email => params[:email], :password=> params[:password],:isDeleted=>FALSE,:role => User::IS_ADMIN)
+      #@admin = User.new(params[:admin],:isDeleted=>FALSE,:role => User::IS_ADMIN)
+      @admin.save
+      flash[:notice] = "Created admin" #{params[:name]}
+  end
     redirect_to(:action => 'view_admins')
   end
 
