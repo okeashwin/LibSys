@@ -6,13 +6,13 @@ class UsersController < ApplicationController
 
   def create_admin
 
-    @admin = User.find_by_email(params[:email])
+    @admin = User.where(:email => params[:email])
 
-    if(@admin)
-      if(@admin.role & User::IS_ADMIN  )
+    if(@admin[0])
+      if(@admin[0].role & User::IS_ADMIN > 0 )
         flash[:notice] = "Already an admin!! "
       else
-        @admin.update_all(@admin[0].role |= User::IS_ADMIN)
+        @admin.update_all(:role => User::IS_MEMBER | User::IS_ADMIN)
         flash[:notice] = "Added as an admin"
       end
     else
@@ -59,7 +59,13 @@ class UsersController < ApplicationController
                           where(user_id: params[:userId]).
                          joins("JOIN books ON reservations.id=books.id")
     @user = User.select(:name, :id).where(id: params[:userId])
-    @user.inspect
+  end
+
+  def return
+     Reservation.update( params[:id], {:dateReturned =>  Time.now.getutc})
+    redirect_to action: 'checkouts', userId: params[:user_id]
+    #Jugaad: passing param user_id form view to checkouts
+    #change status in Book table
   end
 end
 

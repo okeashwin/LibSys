@@ -1,7 +1,7 @@
 <h1>Library Members</h1>
 <p>Active Members</p>
 
-<% if (!@active_members)%>
+<% if !@active_members%>
              No member enrolled to be displayed. You better be good with your PR skills
 <% else %>
 <%= form_tag :action => 'delete_members' do %>
@@ -11,6 +11,7 @@
     <th>Name</th>
     <th>Email</th>
     <th>Checkouts</th>
+    <th>Make Admin</th>
   </tr>
   <% @active_members.each do |m|%>
   <tr>
@@ -18,6 +19,7 @@
     <td><%=  m.name %></td>
     <td><%=  m.email %></td>
     <td><%= link_to "#{m.reservation_count}", {:action => 'checkouts', :userId => m.id}%></td>
+    <td><%= link_to 'Make Admin',{:action => 'create_admin', :email => m.email}%></td>
   </tr>
   <% end %>
 </table>
