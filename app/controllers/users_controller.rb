@@ -5,10 +5,7 @@ class UsersController < ApplicationController
   end
 
   def create_admin
-
-    puts params[:admin]
-
-     @admin = User.new(:name => params[:name], :email => params[:email], :password=> params[:password],:isDeleted=>FALSE,:role => User::IS_ADMIN)
+    @admin = User.new(:name => params[:name], :email => params[:email], :password=> params[:password],:isDeleted=>FALSE,:role => User::IS_ADMIN)
     #@admin = User.new(params[:admin],:isDeleted=>FALSE,:role => User::IS_ADMIN)
     @admin.save
     redirect_to(:action => 'view_admins')
@@ -16,7 +13,7 @@ class UsersController < ApplicationController
 
   def view_admins
 
-      @admins = User.where(:isDeleted => FALSE,:role => User::IS_ADMIN)
+      @admins = User.where("isDeleted = ? and role & ? > 0",FALSE,User::IS_ADMIN)
 
   end
 
