@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150913155408) do
+ActiveRecord::Schema.define(version: 20150915224933) do
 
   create_table "books", force: :cascade do |t|
     t.string   "isbn",        limit: 255, null: false
@@ -27,19 +27,22 @@ ActiveRecord::Schema.define(version: 20150913155408) do
   add_index "books", ["isbn"], name: "index_books_on_isbn", unique: true, using: :btree
 
   create_table "reservations", force: :cascade do |t|
-    t.integer  "users_id",     limit: 4, null: false
-    t.integer  "books_id",     limit: 4, null: false
+    t.integer  "user_id",      limit: 4, null: false
+    t.integer  "book_id",      limit: 4, null: false
     t.datetime "dateIssued",             null: false
-    t.datetime "dateReturned",           null: false
+    t.datetime "dateReturned"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "reservations", ["book_id"], name: "fk_rails_bff51a5a6e", using: :btree
+  add_index "reservations", ["user_id"], name: "fk_rails_48a92fce51", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",       limit: 100, null: false
     t.string   "email",      limit: 50,  null: false
     t.string   "password",   limit: 255, null: false
-    t.integer  "type",       limit: 4,   null: false
+    t.integer  "role",       limit: 4,   null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.boolean  "isDeleted"
@@ -47,4 +50,6 @@ ActiveRecord::Schema.define(version: 20150913155408) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "reservations", "books"
+  add_foreign_key "reservations", "users"
 end
