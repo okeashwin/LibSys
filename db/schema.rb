@@ -11,17 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150915224933) do
+ActiveRecord::Schema.define(version: 20150919190220) do
 
   create_table "books", force: :cascade do |t|
-    t.string   "isbn",        limit: 255, null: false
-    t.string   "name",        limit: 255, null: false
-    t.string   "authors",     limit: 255, null: false
+    t.string   "isbn",        limit: 255,                 null: false
+    t.string   "name",        limit: 255,                 null: false
+    t.string   "authors",     limit: 255,                 null: false
     t.string   "description", limit: 255
-    t.integer  "status",      limit: 4,   null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.boolean  "isDeleted"
+    t.integer  "status",      limit: 4,                   null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.boolean  "isDeleted",               default: false
   end
 
   add_index "books", ["isbn"], name: "index_books_on_isbn", unique: true, using: :btree
@@ -39,13 +39,13 @@ ActiveRecord::Schema.define(version: 20150915224933) do
   add_index "reservations", ["user_id"], name: "fk_rails_48a92fce51", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",       limit: 100, null: false
-    t.string   "email",      limit: 50,  null: false
-    t.string   "password",   limit: 255, null: false
-    t.integer  "role",       limit: 4,   null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.boolean  "isDeleted"
+    t.string   "name",       limit: 100,                 null: false
+    t.string   "email",      limit: 50,                  null: false
+    t.string   "password",   limit: 255,                 null: false
+    t.integer  "role",       limit: 4,                   null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "isDeleted",              default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
