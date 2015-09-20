@@ -1,0 +1,15 @@
+<h1>Login#membersignin</h1>
+<%=  flash[:notice]%>
+<p>I am a member</p>
+
+<table class="tables">
+
+  <tr>
+    <th> <%= link_to "Edit Profile Details", action: 'edit_profile_new'%></th>
+  </tr>
+
+  <tr>
+    <th> <%= link_to "See Books", controller: 'books', action: 'index' %></th>
+  </tr>
+
+</table>

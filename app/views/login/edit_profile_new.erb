@@ -1,0 +1,25 @@
+<h1>Upate your profile</h1>
+<%=  flash[:notice]%>
+<br><br>
+<%= form_tag :action => 'update_profile' do %>
+    <table class="tables">
+
+      <tr>
+        <th> <%= label_tag(:email)%></th>
+        <th> <%= text_field_tag(:email)%></th>
+      </tr>
+
+      <tr>
+        <th> <%= label_tag(:password)%></th>
+        <th> <%= text_field_tag(:password)%></th>
+      </tr>
+
+      <tr>
+        <th> <%= label_tag(:name)%></th>
+        <th> <%= text_field_tag(:name)%></th>
+      </tr>
+
+    </table>
+    </br>
+    <%= submit_tag "Update Profile"%>
+<% end %>

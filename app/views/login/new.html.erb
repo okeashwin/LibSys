@@ -1,0 +1,28 @@
+<h1>Login#new</h1>
+<h1>Sign in into LibSys</h1>
+<%=  flash[:notice]%>
+<br><br>
+<%= form_tag :action => 'signin' do %>
+    <table class="tables">
+
+      <tr>
+        <th> <%= label_tag(:email)%></th>
+        <th> <%= text_field_tag(:email)%></th>
+      </tr>
+
+      <tr>
+        <th> <%= label_tag(:password)%></th>
+        <th> <%= text_field_tag(:password)%></th>
+      </tr>
+
+      <tr>
+        <th> <%= label_tag(:role)%></th>
+        <th> <%= text_field_tag(:role)%></th>
+      </tr>
+
+    </table>
+    </br>
+    <%= submit_tag "Login"%>
+
+    <%= link_to "Sign up " , action: 'signup_new' %>
+<% end %>

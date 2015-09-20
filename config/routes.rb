@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  get 'login_controller/signup_new'
+
+  get 'login_controller/signup_create'
+
+  root 'login#new'
+
+  # get 'login/new'
+
+  # get 'login/signin'
+
   resources :books
   get 'users/view_members'
 

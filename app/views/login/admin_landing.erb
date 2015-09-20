@@ -1,0 +1,35 @@
+<h1>Login#adminsignin</h1>
+<%=  flash[:notice]%>
+<p>I am an admin</p>
+
+<table class="tables">
+
+  <tr>
+    <th> <%= link_to "Edit Profile Details", action: 'edit_profile_new'%></th>
+  </tr>
+
+  <tr>
+    <th> <%= link_to "See Books", controller: 'books', action: 'index' %></th>
+  </tr>
+
+  <tr>
+    <th> <%= link_to "Create an admin", controller: 'users', action: 'new_admin' %></th>
+  </tr>
+
+  <tr>
+    <th> <%= link_to "Delete an admin", controller: 'users', action: 'delete_admins' %></th>
+  </tr>
+
+  <tr>
+    <th> <%= link_to "View Admins", controller: 'users', action: 'view_admins' %></th>
+  </tr>
+
+  <tr>
+    <th> <%= link_to "Delete Members", controller: 'users', action: 'delete_members' %></th>
+  </tr>
+
+  <tr>
+    <th> <%= link_to "View Members", controller: 'users', action: 'view_members' %></th>
+  </tr>
+
+</table>
