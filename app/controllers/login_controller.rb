@@ -5,16 +5,25 @@ class LoginController < ApplicationController
   end
 
   def signin
+    # Get the role right
+    if params[:role] == "Admin"
+      role = User::IS_ADMIN
+    elsif params[:role] == "Member"
+      role = User::IS_MEMBER
+    else
+      # Shouldn't really get here
+      role = 0
+    end
     # Authenticate and redirect accordingly
-    @user = User.where('email = ? AND password = ? AND role = ?', params[:email], params[:password], params[:role].to_i)
+    @user = User.where('email = ? AND password = ? AND role = ?', params[:email], params[:password], role)
     if @user[0]
       # Capture the email id for this session
       session[:email] = @user[0].email
       logger.debug "Session variable has captured this email id : #{session[:email]}"
       # Render the member view
-      if(params[:role].to_i & User::IS_ADMIN > 0)
+      if(role & User::IS_ADMIN > 0)
         render('admin_landing')
-      elsif(params[:role].to_i & User::IS_MEMBER > 0)
+      elsif(role & User::IS_MEMBER > 0)
         render('member_landing')
       else
         # Shouldnt really get in here anytime. A sanity check !!

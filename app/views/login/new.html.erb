@@ -17,7 +17,7 @@
 
       <tr>
         <th> <%= label_tag(:role)%></th>
-        <th> <%= text_field_tag(:role)%></th>
+        <th align="left"> <%= select_tag "role", "<option>Admin</option><option>Member</option>".html_safe%></th>
       </tr>
 
     </table>
