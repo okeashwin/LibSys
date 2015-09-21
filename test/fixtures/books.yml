@@ -4,8 +4,19 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+one:
+  isbn: 978-3-16-148410-0-20
+  name: Book001
+  authors: bookAuthor1,bookAuthor(i+1.to_s)
+  description: description string for book1
+  status: 0
+  isDeleted: FALSE
+
+two:
+  isbn: 978-3-16-148410-0-40
+  name: Book002
+  authors: bookAuthor2,bookAuthor(i+2.to_s)
+  description: description string for book2
+  status: 0
+  isDeleted: FALSE
+
