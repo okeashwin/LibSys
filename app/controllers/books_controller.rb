@@ -1,13 +1,19 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   # GET /books
   def index
     @books = Book.all
+    # Admin
+    if session[:role] == 1
+      render 'admin_book_catalog'
+    else
+      render 'members_book_catalog'
+    end
   end
 
   # GET /books/1
   def show
+    @book = Book.find(params[:id])
   end
 
   # GET /books/new
@@ -17,6 +23,7 @@ class BooksController < ApplicationController
 
   # GET /books/1/edit
   def edit
+    redirect_to action: 'index'
   end
 
   # POST /books
@@ -45,11 +52,43 @@ class BooksController < ApplicationController
     redirect_to books_url, notice: 'Book was successfully destroyed.'
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:id])
+  # New methods
+  def reserve
+    logger.debug "Into reserve"
+    book = Book.find(params[:id])
+    user = User.where('email = ?', session[:email])
+    puts book.status
+    if book.status == 'available'
+      reservation = Reservation.new(user_id: user[0].id, book_id: book.id, dateIssued: Time.now.getutc);
+      if reservation.save(validate: true)
+        book.update(:status => :checkedOut)
+        flash[:notice] = "Book #{book.name} successfully checked out."
+      else
+        flash[:notice] = "There was an error in checking out the book requested."
+      end
+    else
+      flash[:notice] = "The book is not available in the library. It is already checked out."
     end
+
+    # Redirect back to the book catalog
+    redirect_to action: 'index'
+  end
+
+  def search_form
+    @book = Book.new
+  end
+
+  def search
+    # puts params[:book].inspect
+    if params[:status]=='Available'
+      status = 0
+    else
+      status = 1
+    end
+    @books = Book.where("name LIKE ? OR authors LIKE ? OR description LIKE ? OR isbn LIKE ? AND status=?","%#{params[:name]}%", "%#{params[:authors]}%", "%#{params[:description]}%", "%#{params[:isbn]}%", status)
+  end
+
+  private
 
     # Only allow a trusted parameter "white list" through.
     def book_params

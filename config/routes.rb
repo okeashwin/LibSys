@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   # get 'login/signin'
 
+  get 'books/search_form'
   resources :books
   get 'users/view_members'
 

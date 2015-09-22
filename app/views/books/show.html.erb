@@ -1,4 +1,42 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_book_path(@book) %> |
+<table class = "tables">
+  <tr>
+    <td> Book Name</td>
+    <td> <b> <%= @book.name %></b></td>
+  </tr>
+
+  <tr>
+    <td> ISBN</td>
+    <td> <b> <%= @book.isbn %></b></td>
+  </tr>
+
+  <tr>
+    <td> Author(s)</td>
+    <td> <b> <%= @book.authors %></b></td>
+  </tr>
+
+  <tr>
+    <td> Book Description</td>
+    <td> <b> <%= @book.description %></b></td>
+  </tr>
+
+  <tr>
+    <td> Status </td>
+    <td> <b><%if @book.status=='available' %>
+          Available
+          <%else%>
+          Checked Out
+          <%end%>
+    </b></td>
+  </tr>
+</table>
+<!-- If an admin, show up the Edit functionality -->
+<%if session[:role] == 1 %>
+<%= link_to 'Edit Details', edit_book_path(@book) %>
+<%end%>
 <%= link_to 'Back', books_path %>
+
+<br> <br>
+
+<%= render 'footer'%>

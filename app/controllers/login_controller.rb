@@ -19,6 +19,7 @@ class LoginController < ApplicationController
     if @user[0]
       # Capture the email id for this session
       session[:email] = @user[0].email
+      session[:role] = @user[0].role
       logger.debug "Session variable has captured this email id : #{session[:email]}"
       # Render the member view
       if(role & User::IS_ADMIN > 0)

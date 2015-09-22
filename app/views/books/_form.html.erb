@@ -1,17 +1,23 @@
-<%= form_for(@book) do |f| %>
-  <% if @book.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h2>
+<table class="tables">
 
-      <ul>
-      <% @book.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <tr>
+    <th> <%= label_tag(:name)%></th>
+    <th> <%= text_field_tag(:name)%></th>
+  </tr>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <tr>
+    <th> <%= label_tag(:isbn)%></th>
+    <th> <%= text_field_tag(:isbn)%></th>
+  </tr>
+
+  <tr>
+    <th> <%= label_tag(:authors)%></th>
+    <th> <%= text_field_tag(:authors)%></th>
+  </tr>
+
+  <tr>
+    <th> <%= label_tag(:description)%></th>
+    <th> <%= text_field_tag(:description)%></th>
+  </tr>
+
+</table>

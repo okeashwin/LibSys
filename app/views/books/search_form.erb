@@ -1,0 +1,38 @@
+<h1>New Book</h1>
+
+<%= form_tag :action => 'search' do %>
+    <table class = 'tables'>
+      <tr>
+        <th> <%= label_tag(:name)%></th>
+        <th> <%= text_field_tag(:name)%></th>
+      </tr>
+
+      <tr>
+        <th> <%= label_tag(:isbn)%></th>
+        <th> <%= text_field_tag(:isbn)%></th>
+      </tr>
+
+      <tr>
+        <th> <%= label_tag(:authors)%></th>
+        <th> <%= text_field_tag(:authors)%></th>
+      </tr>
+
+      <tr>
+        <th> <%= label_tag(:description)%></th>
+        <th> <%= text_field_tag(:description)%></th>
+      </tr>
+
+      <tr>
+        <th> <%= label_tag(:status)%></th>
+        <th align="left"> <%= select_tag "role", "<option>Available</option><option>Checked Out</option>".html_safe%></th>
+      </tr>
+    </table>
+    </br>
+    <%= submit_tag "Search"%>
+<% end %>
+<br>
+<%= link_to 'Back', books_path %>
+
+<br> <br>
+
+<%= render 'footer'%>

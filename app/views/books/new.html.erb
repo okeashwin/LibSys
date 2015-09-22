@@ -1,5 +1,13 @@
 <h1>New Book</h1>
 
-<%= render 'form' %>
-
+<%= form_tag :action => 'update_profile' do %>
+    <%= render 'form' %>
+    </br>
+    <%= submit_tag "Add"%>
+<% end %>
+<br>
 <%= link_to 'Back', books_path %>
+
+<br> <br>
+
+<%= render 'footer'%>
