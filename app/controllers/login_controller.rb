@@ -46,6 +46,7 @@ class LoginController < ApplicationController
       if @user.save(validate: true)
         # Capture the email id for this session
         session[:email] = @user.email
+        session[:role] = @user.role
         logger.debug "login#signup_create : Session variable has captured this email id : #{session[:email]}"
         flash[:notice] = "Hi "+@user.name+ ", Your profile is created successfully."
         redirect_to action: 'member_landing'
@@ -80,8 +81,17 @@ class LoginController < ApplicationController
 
   end
 
-  # A stub for member landing view
+  def logout
+    session[:email] = nil
+    session[:role] = nil
+    redirect_to action: 'new'
+  end
+
+  # Stubs for landing views
   def member_landing
+  end
+
+  def admin_landing
   end
 
   def user_params
