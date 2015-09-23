@@ -2,22 +2,22 @@
 
   <tr>
     <th> <%= label_tag(:name)%></th>
-    <th> <%= text_field_tag(:name)%></th>
+    <th> <%= text_field(:book, :name)%></th>
   </tr>
 
   <tr>
     <th> <%= label_tag(:isbn)%></th>
-    <th> <%= text_field_tag(:isbn)%></th>
+    <th> <%= text_field(:book, :isbn)%></th>
   </tr>
 
   <tr>
     <th> <%= label_tag(:authors)%></th>
-    <th> <%= text_field_tag(:authors)%></th>
+    <th> <%= text_field(:book, :authors)%></th>
   </tr>
 
   <tr>
     <th> <%= label_tag(:description)%></th>
-    <th> <%= text_field_tag(:description)%></th>
+    <th> <%= text_field(:book, :description)%></th>
   </tr>
 
 </table>

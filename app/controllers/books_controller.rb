@@ -88,10 +88,26 @@ class BooksController < ApplicationController
     @books = Book.where("name LIKE ? OR authors LIKE ? OR description LIKE ? OR isbn LIKE ? AND status=?","%#{params[:name]}%", "%#{params[:authors]}%", "%#{params[:description]}%", "%#{params[:isbn]}%", status)
   end
 
+  def add_new_book_form
+    @book = Book.new
+  end
+
+  def add_new_book
+    puts "In add_new_book"
+    input = book_params
+    @book = Book.new(name: input[:name], authors: input[:authors], description: input[:description], isbn: input[:isbn], status: :available)
+    if @book.save
+      flash[:notice] = "Book : #{@book.name} is successfully added"
+    else
+      flash[:notice] = "There was an error in adding the book to the catalog."
+    end
+    redirect_to action: 'index'
+  end
+
   private
 
     # Only allow a trusted parameter "white list" through.
     def book_params
-      params[:book]
+      params.require(:book).permit(:name, :isbn, :authors, :description)
     end
 end
