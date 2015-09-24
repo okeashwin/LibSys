@@ -81,6 +81,7 @@ end
   end
 
   def checkouts
+
     @checkout_history  = Reservation.select("reservations.*,books.*").
                           where(user_id: params[:userId]).
                          joins("JOIN books ON reservations.id=books.id")

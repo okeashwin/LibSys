@@ -18,7 +18,8 @@
             <td> <%= book.name %> </td>
             <td> <%= book.authors %></td>
             <td> <%= book.description %></td>
-            <td> <%= book.status %></td>
+            <td> <%if book.status == 'available' %> Available
+                  <% else%> Checked Out <%end%></td>
           </tr>
       <% end %>
       </tbody>

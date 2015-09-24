@@ -11,8 +11,13 @@ Rails.application.routes.draw do
   # get 'login/signin'
 
   get 'books/search_form'
+  get 'books/search'
   get 'books/add_new_book'
   get 'books/add_new_book_form'
+  get 'books/admin_reserve_initiate'
+  get 'books/prompt_user_id'
+  get 'books/update'
+
   resources :books
   get 'users/view_members'
 

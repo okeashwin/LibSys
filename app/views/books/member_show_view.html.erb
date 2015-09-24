@@ -32,9 +32,15 @@
   </tr>
 </table>
 <!-- If an admin, show up the Edit functionality -->
-<%if session[:role] == 1 %>
-<%= link_to 'Edit Details', edit_book_path(@book) %>
+<!-- Checkout button -->
+<br> <br>
+
+<% if @book.status=='available' %>
+    <%= button_to "Checkout", { action: 'reserve', id: @book.id }, method: :post %>
+    <% else %>
+    <%= button_to "Checkout", { action: 'reserve', id: @book.id }, { method: :post, disabled: :true} %>
 <%end%>
+
 <%= link_to 'Back', books_path %>
 
 <br> <br>

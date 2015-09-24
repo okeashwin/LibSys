@@ -14,7 +14,6 @@
       <tr>
         <td> <%= book.name %> </td>
         <td><%= link_to 'View Details', book %></td>
-        <td><%= link_to 'Checkout', controller:'books', action: 'reserve', id: book.id %></td>
       </tr>
   <% end %>
   </tbody>
