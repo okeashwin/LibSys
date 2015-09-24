@@ -21,25 +21,10 @@ class BooksController < ApplicationController
     end
   end
 
-  # GET /books/new
-  def new
-    @book = Book.new
-  end
-
   # GET /books/1/edit
   def edit
     logger.debug "Into books#edit : Received this id : #{params[:id]}"
     @book = Book.find(params[:id])
-  end
-
-  # POST /books
-  def create
-    @book = Book.new(book_params)
-    if @book.save
-      redirect_to @book, notice: 'Book was successfully created.'
-    else
-      render :new
-    end
   end
 
   # PATCH/PUT /books/1
@@ -159,6 +144,44 @@ class BooksController < ApplicationController
 
   def not_authorized
 
+  end
+
+  def suggestions_index
+    @suggestions = BookSuggestion.all
+    if session[:role] == 1
+      render 'admin_suggestions_index'
+    else
+      render 'member_suggestions_index'
+    end
+  end
+
+  def suggest_new_book_form
+    @suggestion = BookSuggestion.new
+
+  end
+
+  def suggest_new_book
+    suggestion = BookSuggestion.new(book_params)
+    if suggestion.save
+      flash[:notice] = "Book : #{suggestion.name} is successfully added as a suggestion."
+    else
+      flash[:notice] = "There was an error in adding the book to the suggestions list."
+    end
+    redirect_to action: 'suggestions_index'
+  end
+
+  def add_to_catalog
+    addBooks = BookSuggestion.where(id: params[:to_be_added])
+    addBooks.each do |suggestion|
+      book = Book.new(name: suggestion.name, isbn: suggestion.isbn, authors: suggestion.authors, description: suggestion.description, status: :available)
+      if book.save
+        suggestion.destroy
+        # flash_message :notice, "Book : #{suggestion.name} successfully added to the book catalog"
+      else
+        flash[:notice] = "There was an error in adding this book : #{book.name} to the catalog"
+      end
+    end
+    redirect_to action: 'suggestions_index'
   end
 
   private

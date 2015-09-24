@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   get 'books/admin_reserve_initiate'
   get 'books/prompt_user_id'
   get 'books/update'
+  get 'books/suggest_new_book_form'
+  get 'books/suggest_new_book'
+  get 'books/suggestions_index'
 
   resources :books
   get 'users/view_members'

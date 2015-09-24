@@ -1,0 +1,34 @@
+<h1>Book Suggestions</h1>
+
+<p id="notice"><%=flash[:notice] %></p>
+
+<%if @suggestions.count > 0 %>
+
+    <%= form_tag :action => :add_to_catalog do %>
+        <table class="tables">
+          <thead>
+          <tr>
+            <th></th>
+            <th> Book Name</th>
+            <th> Author(s)</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% @suggestions.each do |suggestion| %>
+              <tr>
+                <td><%= check_box_tag 'to_be_added[]', suggestion.id %></td>
+                <td> <%= suggestion.name %> </td>
+                <td> <%= suggestion.authors %></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+    <%= submit_tag "Add to catalog" %>
+    <% end %>
+<% else %>
+    <b> There are currently no book suggestions</b>
+<% end %>
+<br> <br>
+
+<%= render 'footer'%>

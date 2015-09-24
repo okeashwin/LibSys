@@ -23,7 +23,9 @@
 
 <br>
 
-<%= link_to 'Add a new book', controller: 'books', action: 'add_new_book_form' %>
+<%= button_to 'Add a new book', controller: 'books', action: 'add_new_book_form' %>
+<br>
+<%= button_to 'Suggest a new book', controller: 'books', action: 'suggest_new_book_form' %>
 <br> <br>
 
 <%= render 'footer'%>
