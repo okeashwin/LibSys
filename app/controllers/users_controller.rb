@@ -96,9 +96,9 @@ end
       @user = User.find_by_email(session[:email])
     end
     @checkout_history  = Reservation.select("reservations.*,books.*").
-        where(user_id: params[:userId]).
+        where(user_id: @user.id).
         joins("JOIN books ON reservations.book_id=books.id")
-    @user = User.select(:name, :id).where(id: params[:userId])
+    @user = User.select(:name, :id).where(id: @user.id)
   end
 
   def return
