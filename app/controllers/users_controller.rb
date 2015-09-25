@@ -83,18 +83,23 @@ end
   end
 
   def checkouts
-
-    @checkout_history  = Reservation.select("reservations.*,books.*").
-                          where(user_id: params[:userId]).
-                         joins("JOIN books ON reservations.id=books.id")
-    @user = User.select(:name, :id).where(id: params[:userId])
+    if session[:role] == 1 # Is an admin, we will get the user id from the caller context
+      @user = User.find(params[:userId])
+    else
+      @user = User.find_by_email(session[:email])
+    end
+    @checkout_history  = Reservation.select("reservations.*,books.isbn, books.name, books.authors").
+                          where(user_id: @user.id).
+                         joins("JOIN books ON reservations.book_id=books.id")
+    @user = User.select(:name, :id).where(id: @user.id)
   end
 
   def return
-     Reservation.update( params[:id], {:dateReturned =>  Time.now.getutc})
+    reservation = Reservation.find(params[:id])
+    Reservation.update( params[:id], {:dateReturned =>  Time.now.getutc})
+    # Update the status of the book
+    Book.update(reservation.book_id, {status: :available})
     redirect_to action: 'checkouts', userId: params[:user_id]
-    #Jugaad: passing param user_id form view to checkouts
-    #change status in Book table
   end
 end
 

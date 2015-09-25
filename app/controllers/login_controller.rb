@@ -16,7 +16,7 @@ class LoginController < ApplicationController
       role = 0
     end
     # Authenticate and redirect accordingly
-    @user = User.where('email = ? AND password = ? AND role = ?', params[:email], params[:password], role)
+    @user = User.where('isDeleted = false AND email = ? AND password = ? AND role = ?', params[:email], params[:password], role)
     if @user[0]
       # Capture the email id for this session
       session[:email] = @user[0].email
