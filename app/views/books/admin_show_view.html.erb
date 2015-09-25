@@ -40,10 +40,11 @@
     <% else %>
     <%= button_to "Checkout", { action: 'admin_reserve_initiate', id: @book.id }, { method: :post, disabled: :true} %>
 <%end%>
-
+<%= button_to "Checkout History", { action: 'checkout_history', id: @book.id }, { method: :post} %>
+<br><br>
 <%= link_to 'Edit Details', edit_book_path(@book) %>
 <%= link_to 'Back', books_path %>
-<%= button_to "Checkout History", { action: 'checkout_history', id: @book.id }, { method: :post} %>
+
 
 <br> <br>
 
