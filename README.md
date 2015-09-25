@@ -9,7 +9,7 @@ The application has
 </ul>
 <h3>Basic Flow</h3>
 <ul>
-<li><p><b>Login:</b> Sign in using your email and passowrd and choose the role you want to be logged in. A new user can sign up as a member. New admin has to be created by an existing admin</p></li>
+<li><p><b>Login:</b> Sign in using your email and password and choose the role you want to be logged in with. A new user can sign up as a member. New admin has to be created by an existing admin</p></li>
 <li><b>Landing page:</b> It lists the functionalities available to the logged in user according to his role</li>
 <li><b>Manage Member:</b>
 <p>Test that an admin is able to view and delete a member. Admin can view profile details of a member and promote him to admin. Admin can also view the checkout history of any member, or return a book on his behalf</p></li>
