@@ -36,7 +36,14 @@ class UsersController < ApplicationController
     del_admin = User.where( id: params[:to_be_deleted_admins])
 
     del_admin.each do |a|
-      if (a.role & User::IS_MEMBER > 0)
+      if (a.email == session[:email] )
+
+        flash[:notice] = "Can't Delete yourself"
+      elsif (a.email == 'superUser@libsys.com')
+
+        flash[:notice] =  "Can't Delete SuperAdmin"
+
+      elsif (a.role & User::IS_MEMBER > 0)
         a.update(:role => User::IS_MEMBER)
       else
         reservations = Reservation.where(:user_id => a.id,:dateReturned => NIL)
