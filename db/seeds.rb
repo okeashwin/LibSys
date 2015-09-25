@@ -8,7 +8,7 @@
 
 #The preconfigured admin
 
-=begin
+
  User.create(name: 'superUser', email: 'superUser@libsys.com', password: 'Password12', isDeleted: FALSE,
               role: User::IS_ADMIN)
 
@@ -20,7 +20,7 @@ password = 'member'+i.to_s+'pwd'
 User.create(name: name, email: email, password: password, isDeleted: FALSE,
             role: User::IS_MEMBER)
 end
-=end
+
 
 
 #Default books
@@ -38,3 +38,6 @@ Reservation.create(user_id: 4, book_id: 1, dateIssued: Time.now.getutc)
  Reservation.create(user_id: 2, book_id: 2, dateIssued: Time.now.getutc)
  Reservation.create(user_id: 3, book_id: 3, dateIssued: Time.now.getutc)
  Reservation.create(user_id: 4, book_id: 4, dateIssued: Time.now.getutc)
+
+books_status_update = Book.where(id: [1,2,3,4])
+books_status_update.update_all(status: 1)

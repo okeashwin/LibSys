@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_filter :user_logged_in?
+
   def new_admin
     @admin = User.new
   end
@@ -81,22 +83,26 @@ end
   end
 
   def checkouts
-
+    if session[:role] == 1 # Is an admin, we will get the user id from the caller context
+      @user = User.find(params[:userId])
+    else
+      @user = User.find_by_email(session[:email])
+    end
     @checkout_history  = Reservation.select("reservations.*,books.*").
-                          where(user_id: params[:userId]).
-                         joins("JOIN books ON reservations.book_id=books.id")
+        where(user_id: params[:userId]).
+        joins("JOIN books ON reservations.book_id=books.id")
     @user = User.select(:name, :id).where(id: params[:userId])
   end
 
   def return
     reservation_row = Reservation.find_by book_id: params[:book_id], user_id:  params[:user_id],dateReturned: nil
     reservation_row.update(:dateReturned =>  Time.now.getutc)
-  puts reservation_row.inspect
+
     book_row = Book.find params[:book_id]
-    book_row.update(:status => 'available')
+    book_row.update(status: :available)
     redirect_to action: 'checkouts', userId: params[:user_id]
-    #change status in Book table
-  end
+   end
+
 end
 
 

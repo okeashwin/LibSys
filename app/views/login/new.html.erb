@@ -1,6 +1,5 @@
-<h1>Login#new</h1>
 <h1>Sign in into LibSys</h1>
-<%=  flash[:notice]%>
+<%=flash[:notice]%>
 <br><br>
 <%= form_tag :action => 'signin' do %>
     <table class="tables">
@@ -23,6 +22,6 @@
     </table>
     </br>
     <%= submit_tag "Login"%>
-<br> <br>
-    <%= button_to "Sign up " , action: 'signup_new' %>
 <% end %>
+<br>
+    <%= button_to "Sign up " , action: 'signup_new' %>
