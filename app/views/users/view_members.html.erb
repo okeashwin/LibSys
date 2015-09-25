@@ -1,7 +1,7 @@
 <h1>Library Members</h1>
 <p>Active Members</p>
 <% if !@active_members%>
-             No member enrolled to be displayed. You better be good with your PR skills
+             No member enrolled to be displayed.
 <% else %>
 <%= form_tag :action => 'delete_members' do %>
 <table class="tables">
@@ -22,7 +22,10 @@
   </tr>
   <% end %>
 </table>
+    <br>
     <%= submit_tag "Delete" %>
 <% end %>
     <%=  flash[:notice]%>
 <%end%>
+<br> <br>
+<%= render 'books/footer'%>

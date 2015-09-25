@@ -1,5 +1,4 @@
 <h1>List of Admins</h1>
-<p>Admins</p>
 
 <%=  flash[:notice]%>
 <%= form_tag :action => :delete_admins do %>
@@ -17,7 +16,11 @@
           </tr>
       <% end %>
     </table>
+    <br>
     <%= submit_tag "Delete" %>
 <% end %>
 <% #end%>
 <% # @active_members.inspect %>
+
+<br> <br>
+<%= render 'books/footer' %>

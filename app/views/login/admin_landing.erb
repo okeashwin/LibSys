@@ -1,6 +1,5 @@
-<h1>Login#adminsignin</h1>
+<h1>Welcome Admin</h1>
 <%=  flash[:notice]%>
-<p>I am an admin</p>
 
 <table class="tables">
 
@@ -38,6 +37,6 @@
 
 </table>
 
-<br> <br>
-<%= link_to "Go to Homepage", controller: 'login', action: 'admin_landing' %><br>
+<br>
+<%= link_to "Go to Homepage", controller: 'login', action: 'admin_landing' %><br><br>
 <%= link_to "Logout", controller: 'login', action: 'logout' %>

@@ -12,7 +12,7 @@
 
       <tr>
         <th> <%= label_tag(:password)%></th>
-        <th> <%= text_field_tag(:password)%></th>
+        <th> <%= password_field_tag(:password)%></th>
       </tr>
 
       <tr>
@@ -23,6 +23,6 @@
     </table>
     </br>
     <%= submit_tag "Login"%>
-
-    <%= link_to "Sign up " , action: 'signup_new' %>
+<br> <br>
+    <%= button_to "Sign up " , action: 'signup_new' %>
 <% end %>

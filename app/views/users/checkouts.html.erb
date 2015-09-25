@@ -1,7 +1,7 @@
 <h1>Checkout History</h1>
 <p>User Id: <%= @user[0].id %></p>
 <p>User Name: <%= @user[0].name %></p>
-<%= @checkout_history.inspect%>
+
 <table class="tables">
   <tr>
     <th>ISBN</th>
@@ -26,4 +26,6 @@
   </tr>
   <% end %>
 </table>
+
+<%= render 'books/footer'%>
 

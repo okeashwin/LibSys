@@ -11,7 +11,7 @@
 
       <tr>
         <th> <%= label_tag(:password)%></th>
-        <th> <%= text_field_tag(:password)%></th>
+        <th> <%= password_field_tag(:password)%></th>
       </tr>
 
       <tr>
@@ -29,5 +29,5 @@
 <% else %>
     <%= link_to "Go to Homepage", controller: 'login', action: 'member_landing' %>
 <% end %>
-<br>
+<br> <br>
 <%= link_to "Logout", controller: 'login', action: 'logout' %>
