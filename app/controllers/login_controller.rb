@@ -1,4 +1,5 @@
 class LoginController < ApplicationController
+
   def new
     # Present the login form
     @user = User.new
@@ -59,6 +60,7 @@ class LoginController < ApplicationController
 
   # Edit profile
   def edit_profile_new
+    user_logged_in?
     # Find the member's details
     logger.debug "Retrieving details for the user with the email ID : #{session[:email]}"
     @user = User.where('email = ?', session[:email])

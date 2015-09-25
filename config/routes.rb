@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
-  get 'login_controller/signup_new'
+  get 'login/signup_new'
 
-  get 'login_controller/signup_create'
+  get 'login/signup_create'
 
   root 'login#new'
 

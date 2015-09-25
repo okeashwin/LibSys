@@ -17,4 +17,14 @@ class ApplicationController < ActionController::Base
     end
     rendered.join('<br/>')
   end
+
+  def user_logged_in?
+    unless session[:email]
+      flash[:notice] = "Please log in."
+      redirect_to(:controller => 'login', :action => 'new')
+      return false # halts the before_filter
+    else
+      return true
+    end
+  end
 end

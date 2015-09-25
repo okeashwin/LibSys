@@ -1,5 +1,7 @@
 class BooksController < ApplicationController
 
+  before_filter :user_logged_in?
+
   # GET /books
   def index
     @books = Book.all

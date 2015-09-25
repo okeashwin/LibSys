@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_filter :user_logged_in?
+
   def new_admin
     @admin = User.new
   end
