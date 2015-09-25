@@ -1,22 +1,22 @@
 <h1>Update your profile</h1>
 <%=  flash[:notice]%>
 <br><br>
-<%= form_tag :action => 'update_profile' do %>
+<%= form_for(@user, :url => {:action => 'update_profile'}) do %>
     <table class="tables">
 
       <tr>
         <th> <%= label_tag(:email)%></th>
-        <th> <%= text_field_tag(:email)%></th>
+        <th> <%= text_field_tag :email, @user.email %></th>
       </tr>
 
       <tr>
         <th> <%= label_tag(:password)%></th>
-        <th> <%= password_field_tag(:password)%></th>
+        <th> <%= password_field(@user, :password)%></th>
       </tr>
 
       <tr>
         <th> <%= label_tag(:name)%></th>
-        <th> <%= text_field_tag(:name)%></th>
+        <th> <%= text_field_tag :name , @user.name %></th>
       </tr>
 
     </table>

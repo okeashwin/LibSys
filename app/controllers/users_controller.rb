@@ -36,7 +36,14 @@ class UsersController < ApplicationController
     del_admin = User.where( id: params[:to_be_deleted_admins])
 
     del_admin.each do |a|
-      if (a.role & User::IS_MEMBER > 0)
+      if (a.email == session[:email] )
+
+        flash[:notice] = "Can't Delete yourself"
+      elsif (a.email == 'superUser@libsys.com')
+
+        flash[:notice] =  "Can't Delete SuperAdmin"
+
+      elsif (a.role & User::IS_MEMBER > 0)
         a.update(:role => User::IS_MEMBER)
       else
         reservations = Reservation.where(:user_id => a.id,:dateReturned => NIL)
@@ -88,19 +95,21 @@ end
     else
       @user = User.find_by_email(session[:email])
     end
-    @checkout_history  = Reservation.select("reservations.*,books.isbn, books.name, books.authors").
-                          where(user_id: @user.id).
-                         joins("JOIN books ON reservations.book_id=books.id")
-    @user = User.select(:name, :id).where(id: @user.id)
+    @checkout_history  = Reservation.select("reservations.*,books.*").
+        where(user_id: params[:userId]).
+        joins("JOIN books ON reservations.book_id=books.id")
+    @user = User.select(:name, :id).where(id: params[:userId])
   end
 
   def return
-    reservation = Reservation.find(params[:id])
-    Reservation.update( params[:id], {:dateReturned =>  Time.now.getutc})
-    # Update the status of the book
-    Book.update(reservation.book_id, {status: :available})
+    reservation_row = Reservation.find_by book_id: params[:book_id], user_id:  params[:user_id],dateReturned: nil
+    reservation_row.update(:dateReturned =>  Time.now.getutc)
+
+    book_row = Book.find params[:book_id]
+    book_row.update(status: :available)
     redirect_to action: 'checkouts', userId: params[:user_id]
-  end
+   end
+
 end
 
 

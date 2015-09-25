@@ -63,7 +63,7 @@ class LoginController < ApplicationController
     user_logged_in?
     # Find the member's details
     logger.debug "Retrieving details for the user with the email ID : #{session[:email]}"
-    @user = User.where('email = ?', session[:email])
+    @user = User.find_by_email(session[:email])
   end
 
   def update_profile

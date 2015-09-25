@@ -4,37 +4,22 @@
 <table class="tables">
 
   <tr>
-    <th> <%= link_to "Edit Profile Details", action: 'edit_profile_new'%></th>
+    <th> <%= link_to "Profile Details", action: 'edit_profile_new'%></th>
   </tr>
 
   <tr>
-    <th> <%= link_to "See Books", controller: 'books', action: 'index' %></th>
+    <th> <%= link_to "Manage Books", controller: 'books', action: 'index' %></th>
   </tr>
 
+  <tr>
+    <th> <%= link_to "Manage Admins", controller: 'users', action: 'view_admins' %></th>
+  </tr>
+  <tr>
+    <th> <%= link_to "Manage Members", controller: 'users', action: 'view_members' %></th>
+  </tr>
   <tr>
     <th> <%= link_to "View Book Suggestions", controller: 'books', action: 'suggestions_index' %></th>
   </tr>
-
-  <tr>
-    <th> <%= link_to "Create an admin", controller: 'users', action: 'new_admin' %></th>
-  </tr>
-
-  <tr>
-    <th> <%= link_to "Delete an admin", controller: 'users', action: 'delete_admins' %></th>
-  </tr>
-
-  <tr>
-    <th> <%= link_to "View Admins", controller: 'users', action: 'view_admins' %></th>
-  </tr>
-
-  <tr>
-    <th> <%= link_to "Delete Members", controller: 'users', action: 'delete_members' %></th>
-  </tr>
-
-  <tr>
-    <th> <%= link_to "View Members", controller: 'users', action: 'view_members' %></th>
-  </tr>
-
 </table>
 
 <br>
