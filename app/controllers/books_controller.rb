@@ -184,6 +184,13 @@ class BooksController < ApplicationController
     redirect_to action: 'suggestions_index'
   end
 
+
+  def checkout_history
+    @checkout_history  = Reservation.select("reservations.*,users.*").
+                              where(book_id: params[:id]).
+                              joins("JOIN users ON reservations.user_id=users.id").order(dateIssued: :desc)
+    @book = Book.select(:name,:authors,:isbn, :id).where(id: params[:id])
+  end
   private
 
     # Only allow a trusted parameter "white list" through.

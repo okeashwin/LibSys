@@ -84,14 +84,17 @@ end
 
     @checkout_history  = Reservation.select("reservations.*,books.*").
                           where(user_id: params[:userId]).
-                         joins("JOIN books ON reservations.id=books.id")
+                         joins("JOIN books ON reservations.book_id=books.id")
     @user = User.select(:name, :id).where(id: params[:userId])
   end
 
   def return
-     Reservation.update( params[:id], {:dateReturned =>  Time.now.getutc})
+    reservation_row = Reservation.find_by book_id: params[:book_id], user_id:  params[:user_id],dateReturned: nil
+    reservation_row.update(:dateReturned =>  Time.now.getutc)
+  puts reservation_row.inspect
+    book_row = Book.find params[:book_id]
+    book_row.update(:status => 'available')
     redirect_to action: 'checkouts', userId: params[:user_id]
-    #Jugaad: passing param user_id form view to checkouts
     #change status in Book table
   end
 end
