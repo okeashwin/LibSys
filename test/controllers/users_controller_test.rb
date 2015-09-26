@@ -3,7 +3,7 @@ require 'test_helper'
 class UsersControllerTest < ActionController::TestCase
 
   setup do
-    @user = users(:one)
+    @admin = users(:one)
     @user1 = users(:two)
     @superadmin = users(:three)
     @new_member = User.new(name: "new_user", email: "xyz@gmail.com", password: "test122", isDeleted: false, role: User::IS_MEMBER);
@@ -24,7 +24,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should create admin" do
     assert_difference('User.count') do
-      post :create_admin, user: {name: @new_admin.name, email: @new_admin.email, password: @new_admin.email,isDeleted: @new_admin.isDeleted,role: @new_admin.role}
+      post :create_admin, {name: @new_admin.name, email: @new_admin.email, password: @new_admin.email,isDeleted: @new_admin.isDeleted,role: @new_admin.role}
     end
   end
 
@@ -34,9 +34,10 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should delete admins" do
-    assert_equal FALSE,@user.isDeleted
-    delete :delete_admins
-    assert_equal TRUE,@user.isDeleted
+    assert_equal FALSE,@admin.isDeleted
+    delete :delete_admins, to_be_deleted_admins: @admin
+    admin = User.find(@admin.id)
+    assert_equal TRUE,admin.isDeleted
   end
 
   test "should list members" do
@@ -46,7 +47,8 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should delete members" do
     assert_equal FALSE,@user1.isDeleted
-    delete :delete_members
-    assert_equal TRUE,@user1.isDeleted
+    delete :delete_members, to_be_deleted_members: @user1.id
+    user = User.find(@user1.id)
+    assert_equal TRUE,user.isDeleted
   end
 end

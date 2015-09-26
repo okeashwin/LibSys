@@ -6,10 +6,10 @@
 #
 
 one:
-  name: member1
-  email: 4567@gmail.com
-  password: member1pwd
-  role: 2
+  name: admin1
+  email: admin@gmail.com
+  password: adminpwd
+  role: 1
   isDeleted: FALSE
 
 two:
