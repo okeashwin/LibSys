@@ -5,10 +5,10 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-  isbn: 978-3-16-148410-0-80
-  name: Book004
-  authors: bookAuthor4,bookAuthor(i+1.to_s)
-  description: description string for book4
+  isbn: 978-3-16-148410-0-0090
+  name: Java - Hands On
+  authors: Author5
+  description: description - Java
 
 two:
   isbn: 978-3-16-148410-0-60

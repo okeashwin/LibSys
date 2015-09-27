@@ -4,7 +4,7 @@ class BooksController < ApplicationController
 
   # GET /books
   def index
-    @books = Book.all
+    @books = Book.where('isDeleted = FALSE')
     # Admin
     if session[:role] == 1
       render 'admin_book_catalog'
@@ -44,11 +44,11 @@ class BooksController < ApplicationController
   def destroy
     @book = Book.find(params[:id])
     # See if there are any active reservations
-    reservations = Reservation.where('book_id = ?', @book.id)
+    reservations = Reservation.where('book_id = ? and dateReturned IS NULL', @book.id)
     if reservations[0]
       flash[:notice] = "There are active check-outs for this book"
     else
-      @book.destroy
+      @book.update(isDeleted: TRUE)
       flash[:notice] = " Book : #{@book.name} successfully deleted"
     end
     redirect_to action: 'index'
@@ -59,7 +59,7 @@ class BooksController < ApplicationController
     logger.debug "Into reserve"
     book = Book.find(params[:id])
     user = User.where('email = ?', session[:email])
-    puts book.status
+    # puts book.status
     if book.status == 'available'
       reservation = Reservation.new(user_id: user[0].id, book_id: book.id, dateIssued: Time.now.getutc);
       if reservation.save(validate: true)
@@ -87,9 +87,9 @@ class BooksController < ApplicationController
   end
 
   def admin_reserve
-    puts params[:id]
-    puts params[:email]
-    users = User.where('email = ?', params[:email])
+    # puts params[:id]
+    # puts params[:email]
+    users = User.where('email = ? AND isDeleted = FALSE', params[:email])
     book = Book.find(params[:id])
     if users[0]
       if users[0].role & User::IS_MEMBER > 0
@@ -119,7 +119,7 @@ class BooksController < ApplicationController
   end
 
   def search
-    puts params[:status]
+    # puts params[:status]
     if params[:status]=='Available'
       status = 0
     else
@@ -133,7 +133,7 @@ class BooksController < ApplicationController
   end
 
   def add_new_book
-    puts "In add_new_book"
+    # puts "In add_new_book"
     input = book_params
     @book = Book.new(name: input[:name], authors: input[:authors], description: input[:description], isbn: input[:isbn], status: :available)
     if @book.save
