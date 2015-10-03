@@ -8,7 +8,6 @@
         <table class="tables">
           <thead>
           <tr>
-            <th></th>
             <th> Book Name</th>
             <th> Author(s)</th>
           </tr>
@@ -17,14 +16,14 @@
           <tbody>
           <% @suggestions.each do |suggestion| %>
               <tr>
-                <td><%= check_box_tag 'to_be_added[]', suggestion.id %></td>
                 <td> <%= suggestion.name %> </td>
                 <td> <%= suggestion.authors %></td>
+                <td> <%= link_to "Approve", action: 'edit_suggestion_details_form', id: suggestion %></td>
+                <td> <%= link_to "Delete", action: 'delete_suggestion', id: suggestion %></td>
               </tr>
           <% end %>
           </tbody>
         </table>
-    <%= submit_tag "Approve" %>
     <% end %>
 <% else %>
     <b> There are currently no book suggestions</b>

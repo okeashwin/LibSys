@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   get 'books/suggest_new_book_form'
   get 'books/suggest_new_book'
   get 'books/suggestions_index'
+  get 'books/edit_suggestion_details_form'
+  get 'books/delete_suggestion'
 
   resources :books
   get 'users/view_members'

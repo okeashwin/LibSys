@@ -5,9 +5,10 @@
 <%= form_tag books_update_path do %>
     <%= render 'form' %>
     <%= hidden_field_tag :id , @book.id %>
+    <br>
     <%= submit_tag "Update" %>
 <%end%>
-
+<br>
 <%= link_to 'Show', @book %> |
 <%= link_to 'Back', books_path %>
 

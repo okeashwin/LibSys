@@ -13,6 +13,23 @@ class BooksControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
+    assert_template 'admin_book_catalog'
+
+    session[:role] = User::IS_MEMBER
+    get :index
+    assert_response :success
+    assert_template 'member_book_catalog'
+  end
+
+  test "should get show" do
+    get :show, id: @sample_book
+    assert_response :success
+    assert_template 'admin_show_view'
+
+    session[:role] = User::IS_MEMBER
+    get :show, id: @sample_book
+    assert_response :success
+    assert_template 'member_show_view'
   end
 
   test "should get add_new_book_form" do
@@ -29,11 +46,6 @@ class BooksControllerTest < ActionController::TestCase
     assert_difference('Book.count') do
       post :add_new_book, book: {name: @book.name, isbn: @book.isbn, authors: @book.authors, description: @book.description, status: @book.status, isDeleted: @book.isDeleted}
     end
-  end
-
-  test "should show book" do
-    get :show, id: @sample_book
-    assert_response :success
   end
 
   test "should get edit" do
@@ -77,6 +89,13 @@ class BooksControllerTest < ActionController::TestCase
   test "should get suggestions-index" do
     get :suggestions_index
     assert_response :success
+    assert_template 'admin_suggestions_index'
+
+    session[:role] = User::IS_MEMBER
+    get :suggestions_index
+    assert_response :success
+    assert_template 'member_suggestions_index'
+
   end
 
   test "render book suggestions form" do
@@ -93,13 +112,13 @@ class BooksControllerTest < ActionController::TestCase
 
   test "suggestion should get added to catalog" do
     assert_difference('Book.count') do
-      post :add_to_catalog, to_be_added: @book_suggestion.id
+      post :add_to_catalog, { id: @book_suggestion.id, book: {name: @book_suggestion.name, isbn: @book_suggestion.isbn, authors: @book_suggestion.authors, description: @book_suggestion.description, status: :available}}
     end
   end
 
   test "suggestion should be deleted from 'suggestions' relation after getting added to catalog" do
     assert_difference('BookSuggestion.count',-1) do
-      post :add_to_catalog, to_be_added: @book_suggestion.id
+      post :add_to_catalog, { id: @book_suggestion.id, book: {name: @book_suggestion.name, isbn: @book_suggestion.isbn, authors: @book_suggestion.authors, description: @book_suggestion.description, status: :available}}
     end
   end
 end

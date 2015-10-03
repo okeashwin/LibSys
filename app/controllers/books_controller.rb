@@ -6,7 +6,7 @@ class BooksController < ApplicationController
   def index
     @books = Book.where('isDeleted = FALSE')
     # Admin
-    if session[:role] == 1
+    if session[:role] & User::IS_ADMIN > 0
       render 'admin_book_catalog'
     else
       render 'members_book_catalog'
@@ -16,7 +16,7 @@ class BooksController < ApplicationController
   # GET /books/1
   def show
     @book = Book.find(params[:id])
-    if session[:role] == 1
+    if session[:role] & User::IS_ADMIN > 0
       render 'admin_show_view'
     else
       render 'member_show_view'
@@ -150,7 +150,8 @@ class BooksController < ApplicationController
 
   def suggestions_index
     @suggestions = BookSuggestion.all
-    if session[:role] == 1
+
+    if session[:role] & User::IS_ADMIN > 0
       render 'admin_suggestions_index'
     else
       render 'member_suggestions_index'
@@ -172,15 +173,35 @@ class BooksController < ApplicationController
     redirect_to action: 'suggestions_index'
   end
 
+  def edit_suggestion_details_form
+    @book = BookSuggestion.find(params[:id])
+  end
+
+  def edit_suggestion_details
+  end
+
+  def delete_suggestion
+
+    @book = BookSuggestion.find(params[:id])
+    if @book.destroy
+      flash[:notice] = "Book Suggestion #{@book.name} successfully deleted"
+    else
+      flash[:notice] = "There was an error in deleting the book suggestion : #{@book.name}"
+    end
+    redirect_to action: 'suggestions_index'
+
+  end
+
   def add_to_catalog
-    addBooks = BookSuggestion.where(id: params[:to_be_added])
+    addBooks = BookSuggestion.where(id: params[:id])
     addBooks.each do |suggestion|
-      book = Book.new(name: suggestion.name, isbn: suggestion.isbn, authors: suggestion.authors, description: suggestion.description, status: :available)
-      if book.save
+      # book = Book.new(name: suggestion.name, isbn: isbn, authors: suggestion.authors, description: suggestion.description, status: :available)
+      book = Book.new(name: params[:book][:name], isbn: params[:book][:isbn], authors: params[:book][:authors], description: params[:book][:description], status: :available)
+      if book.save!
         suggestion.destroy
-        # flash_message :notice, "Book : #{suggestion.name} successfully added to the book catalog"
+        flash[:notice] = "Book : #{params[:book][:name]} successfully added to the book catalog"
       else
-        flash[:notice] = "There was an error in adding this book : #{book.name} to the catalog"
+        flash[:notice] = "There was an error in adding this book : #{params[:book][:name]} to the catalog"
       end
     end
     redirect_to action: 'suggestions_index'

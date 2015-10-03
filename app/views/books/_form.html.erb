@@ -2,17 +2,17 @@
 
   <tr>
     <th> <%= label_tag(:name)%></th>
-    <th> <%= text_field(:book, :name)%></th>
+    <th> <%= text_field(:book, :name, required: :true)%></th>
   </tr>
 
   <tr>
     <th> <%= label_tag(:isbn)%></th>
-    <th> <%= text_field(:book, :isbn)%></th>
+    <th> <%= text_field(:book, :isbn, required: :true)%></th>
   </tr>
 
   <tr>
     <th> <%= label_tag(:authors)%></th>
-    <th> <%= text_field(:book, :authors)%></th>
+    <th> <%= text_field(:book, :authors, required: :true)%></th>
   </tr>
 
   <tr>
