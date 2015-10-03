@@ -18,7 +18,7 @@ class BooksControllerTest < ActionController::TestCase
     session[:role] = User::IS_MEMBER
     get :index
     assert_response :success
-    assert_template 'member_book_catalog'
+    assert_template 'members_book_catalog'
   end
 
   test "should get show" do

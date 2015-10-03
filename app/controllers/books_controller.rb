@@ -125,7 +125,7 @@ class BooksController < ApplicationController
     else
       status = 1
     end
-    @books = Book.where("(name LIKE ? OR authors LIKE ? OR description LIKE ? OR isbn LIKE ?) AND status=?","%#{params[:name]}%", "%#{params[:authors]}%", "%#{params[:description]}%", "%#{params[:isbn]}%", status)
+    @books = Book.where("(name LIKE ? OR authors LIKE ? OR description LIKE ? OR isbn LIKE ?) AND status=?","%#{params[:search_string]}%", "%#{params[:search_string]}%", "%#{params[:search_string]}%", "%#{params[:search_string]}%", status)
   end
 
   def add_new_book_form

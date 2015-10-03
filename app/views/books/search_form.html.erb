@@ -1,25 +1,10 @@
-<h1>New Book</h1>
+<h1>Search Book</h1>
 
 <%= form_tag :action => 'search' do %>
     <table class = 'tables'>
       <tr>
-        <th> <%= label_tag(:name)%></th>
-        <th> <%= text_field_tag(:name)%></th>
-      </tr>
-
-      <tr>
-        <th> <%= label_tag(:isbn)%></th>
-        <th> <%= text_field_tag(:isbn)%></th>
-      </tr>
-
-      <tr>
-        <th> <%= label_tag(:authors)%></th>
-        <th> <%= text_field_tag(:authors)%></th>
-      </tr>
-
-      <tr>
-        <th> <%= label_tag(:description)%></th>
-        <th> <%= text_field_tag(:description)%></th>
+        <th> <%= label_tag(:search_string)%></th>
+        <th> <%= text_field_tag(:search_string , nil, placeholder: "Enter ISBN or Book attributes")%></th>
       </tr>
 
       <tr>
