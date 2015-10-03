@@ -15,8 +15,10 @@ class LoginController < ApplicationController
       # Shouldn't really get here
       role = 0
     end
+    # User could both be a admin and a member
+    alternate_role = User::IS_ADMIN | User::IS_MEMBER
     # Authenticate and redirect accordingly
-    @user = User.where('isDeleted = false AND email = ? AND password = ? AND role = ?', params[:email], params[:password], role)
+    @user = User.where('isDeleted = false AND email = ? AND password = ? AND ( role = ? OR role = ?)', params[:email], params[:password], role, alternate_role)
     if @user[0]
       # Capture the email id for this session
       session[:email] = @user[0].email
@@ -68,11 +70,9 @@ class LoginController < ApplicationController
 
   def update_profile
     @user = User.where('email = ?', session[:email])
-    logger.debug "Into login#edit_profile: Params hash : #{params[:login].inspect}, #{params[:id].inspect}, #{params[:name].inspect}, #{params[:email].inspect}, #{params[:password].inspect}"
     if @user[0]
-      if @user[0].update(user_params)
+      if @user[0].update_columns(user_params.delete_if { |k,v| v.blank? })
         flash[:notice] = "Updated the profile successfully"
-        session[:email] = params[:email]
         redirect_to action: 'edit_profile_new'
       else
         flash[:notice] = "There was an error updating the profile !"
@@ -81,7 +81,6 @@ class LoginController < ApplicationController
     else
       logger.error "login#edit_profile : Couldn't find the user for editing profile"
     end
-
   end
 
   def logout
@@ -98,7 +97,7 @@ class LoginController < ApplicationController
   end
 
   def user_params
-    params.permit(:email, :name, :password)
+    params.require(:user).permit(:email, :name, :password)
   end
 end
 
