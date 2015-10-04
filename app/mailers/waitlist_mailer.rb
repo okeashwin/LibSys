@@ -1,0 +1,2 @@
+class WaitlistMailer < ApplicationMailer
+end

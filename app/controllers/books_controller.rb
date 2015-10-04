@@ -16,6 +16,7 @@ class BooksController < ApplicationController
   # GET /books/1
   def show
     @book = Book.find(params[:id])
+    @waitlist = Waitlist.where(user_id: session[:user_id], book_id: @book.id)
     if session[:role] & User::IS_ADMIN > 0
       render 'admin_show_view'
     else
@@ -213,6 +214,15 @@ class BooksController < ApplicationController
                               where(book_id: params[:id]).
                               joins("JOIN users ON reservations.user_id=users.id").order(dateIssued: :desc)
     @book = Book.select(:name,:authors,:isbn, :id).where(id: params[:id])
+  end
+  def addWaitlist
+    waitlist_new = Waitlist.new(user_id: session[:user_id],book_id:params[:id])
+    if waitlist_new.save(validate: true)
+      flash[:notice] = "You have been added to waitlist"
+    end
+    @book = Book.find(params[:id])
+    @waitlist = waitlist_new.id
+    render('member_show_view')
   end
   private
 
