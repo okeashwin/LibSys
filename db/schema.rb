@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924195424) do
+ActiveRecord::Schema.define(version: 20151004141354) do
 
   create_table "book_suggestions", force: :cascade do |t|
     t.string   "isbn",        limit: 255
@@ -59,6 +59,18 @@ ActiveRecord::Schema.define(version: 20150924195424) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  create_table "waitlists", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "book_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "waitlists", ["book_id"], name: "index_waitlists_on_book_id", using: :btree
+  add_index "waitlists", ["user_id"], name: "index_waitlists_on_user_id", using: :btree
+
   add_foreign_key "reservations", "books"
   add_foreign_key "reservations", "users"
+  add_foreign_key "waitlists", "books"
+  add_foreign_key "waitlists", "users"
 end

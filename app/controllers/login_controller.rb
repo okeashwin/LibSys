@@ -23,6 +23,7 @@ class LoginController < ApplicationController
       # Capture the email id for this session
       session[:email] = @user[0].email
       session[:role] = role
+      session[:user_id] = @user[0].id
       logger.debug "Session variable has captured this email id : #{session[:email]}"
       # Render the member view
       if(role & User::IS_ADMIN > 0)
@@ -51,6 +52,7 @@ class LoginController < ApplicationController
         # Capture the email id for this session
         session[:email] = @user.email
         session[:role] = @user.role
+        session[:user_id]=@user.id
         logger.debug "login#signup_create : Session variable has captured this email id : #{session[:email]}"
         flash[:notice] = "Hi "+@user.name+ ", Your profile is created successfully."
         redirect_to action: 'member_landing'
@@ -86,6 +88,7 @@ class LoginController < ApplicationController
   def logout
     session[:email] = nil
     session[:role] = nil
+    session[:user_id] = nil
     redirect_to action: 'new'
   end
 
