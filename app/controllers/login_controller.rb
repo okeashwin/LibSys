@@ -48,18 +48,30 @@ class LoginController < ApplicationController
 
   def signup_create
     @user = User.new(:name => params[:name], :email => params[:email], :password=> params[:password],:isDeleted=>FALSE,:role => User::IS_MEMBER)
-      if @user.save(validate: true)
-        # Capture the email id for this session
-        session[:email] = @user.email
-        session[:role] = @user.role
-        session[:user_id]=@user.id
-        logger.debug "login#signup_create : Session variable has captured this email id : #{session[:email]}"
-        flash[:notice] = "Hi "+@user.name+ ", Your profile is created successfully."
-        redirect_to action: 'member_landing'
+    @existingUser = User.find_by_email(params[:email])
+    if @existingUser
+      if @existingUser.role & User::IS_MEMBER > 0
+        flash[:notice] = "An account with email : #{params[:email]} already exists. Please use the original credentials to sign in. This user account is already a member account"
       else
-        flash[:notice] = "There was an error in creating profile."
-        redirect_to action: 'signup_new'
+        flash[:notice] = "An account with email : #{params[:email]} already exists. Please use the original credentials to sign in. Added the user account as a member account"
+        @existingUser.update_column(:role, @existingUser.role | User::IS_MEMBER)
       end
+      redirect_to action: 'new'
+
+    else
+        if @user.save(validate: true)
+          # Capture the email id for this session
+          session[:email] = @user.email
+          session[:role] = @user.role
+          session[:user_id]=@user.id
+          logger.debug "login#signup_create : Session variable has captured this email id : #{session[:email]}"
+          flash[:notice] = "Hi "+@user.name+ ", Your profile is created successfully."
+          redirect_to action: 'member_landing'
+        else
+          flash[:notice] = "There was an error in creating profile."
+          redirect_to action: 'signup_new'
+        end
+    end
   end
 
   # Edit profile
