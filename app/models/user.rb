@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   # Relationships
   has_many :reservations
+  has_many :books, through: :waitlists
 
   # Role checker targets
   IS_ADMIN = 1<<0

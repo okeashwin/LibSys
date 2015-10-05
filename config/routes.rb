@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'books/suggestions_index'
   get 'books/edit_suggestion_details_form'
   get 'books/delete_suggestion'
+  get 'books/show_waitlist'
 
   resources :books
   get 'users/view_members'

@@ -145,10 +145,6 @@ class BooksController < ApplicationController
     redirect_to action: 'index'
   end
 
-  def not_authorized
-
-  end
-
   def suggestions_index
     @suggestions = BookSuggestion.all
 
@@ -215,6 +211,8 @@ class BooksController < ApplicationController
                               joins("JOIN users ON reservations.user_id=users.id").order(dateIssued: :desc)
     @book = Book.select(:name,:authors,:isbn, :id).where(id: params[:id])
   end
+
+
   def addWaitlist
     waitlist_new = Waitlist.new(user_id: session[:user_id],book_id:params[:id])
     if waitlist_new.save(validate: true)
@@ -224,6 +222,11 @@ class BooksController < ApplicationController
     @waitlist = waitlist_new.id
     render('member_show_view')
   end
+
+  def show_waitlist
+    @waitlists = Waitlist.joins(:user, :book).order(book_id: :asc, created_at: :asc)
+  end
+
   private
 
     # Only allow a trusted parameter "white list" through.

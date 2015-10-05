@@ -8,6 +8,6 @@ class Book < ActiveRecord::Base
 
   # Relationships
   has_many :reservations
-
+  has_many :users, through: :waitlists
   enum status: [:available, :checkedOut]
 end
