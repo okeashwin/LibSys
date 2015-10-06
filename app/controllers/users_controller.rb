@@ -107,12 +107,14 @@ end
 
     nextWaitlist = Waitlist.order(created_at: :asc).find_by_book_id(params[:book_id])
 
+    book = Book.find params[:book_id]
     if(nextWaitlist.nil?)
-      book_row = Book.find params[:book_id]
-      book_row.update(status: :available)
+      book.update(status: :available)
     else
       reservation = Reservation.create(user_id: nextWaitlist.user_id, book_id: nextWaitlist.book_id, dateIssued: Time.now.getutc);
       Waitlist.destroy(nextWaitlist.id)
+      user = User.find(nextWaitlist.user_id)
+      WaitlistMailer.waiting_clear_notification(user,book).deliver
     end
     redirect_to action: 'checkouts', userId: params[:user_id]
    end
