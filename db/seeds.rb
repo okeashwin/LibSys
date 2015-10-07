@@ -9,7 +9,7 @@
 #The preconfigured admin
 
 
- User.create(name: 'superUser', email: 'superUser@libsys.com', password: 'Password12', isDeleted: FALSE,
+ User.create(name: 'superUser', email: 'superuser@libsys.com', password: 'Password12', isDeleted: FALSE,
               role: User::IS_ADMIN)
 
 #Default members
