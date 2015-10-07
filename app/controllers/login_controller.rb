@@ -107,10 +107,18 @@ class LoginController < ApplicationController
   # Stubs for landing views
   def member_landing
     user_logged_in?
+    if session[:role] & User::IS_ADMIN > 0
+      flash[:notice] = "Not authorized to access the requested page"
+      redirect_to action: 'new'
+    end
   end
 
   def admin_landing
     user_logged_in?
+    if session[:role] & User::IS_MEMBER > 0
+      flash[:notice] = "Not authorized to access the requested page"
+      redirect_to action: 'new'
+    end
   end
 
   def user_params
