@@ -68,7 +68,7 @@ class LoginController < ApplicationController
           flash[:notice] = "Hi "+@user.name+ ", Your profile is created successfully."
           redirect_to action: 'member_landing'
         else
-          flash[:notice] = "There was an error in creating profile."
+          flash[:notice] = "Please enter a valid email id."
           redirect_to action: 'signup_new'
         end
     end

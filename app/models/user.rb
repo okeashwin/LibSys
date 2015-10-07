@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :password, presence: true
   validates :role, presence: true
+  validates_format_of :email,:with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
   # Relationships
   has_many :reservations
