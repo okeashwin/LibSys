@@ -106,9 +106,11 @@ class LoginController < ApplicationController
 
   # Stubs for landing views
   def member_landing
+    user_logged_in?
   end
 
   def admin_landing
+    user_logged_in?
   end
 
   def user_params
