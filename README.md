@@ -22,7 +22,7 @@ Following are the things that are already setup :
     * The admin can checkout a book on behalf of any valid MEMBER (NOT ADMIN). Account should be associated to a member role for being allowed book checkout.<br/>
   * <b>Book Checkout history</b>: 
     * Lists the checkout history by date issued, date returned. 
-    * The checkout history will display the member even if the member was deleted and is no longer an active member.       * For currently checked out books it provides admin an option to return the book on behalf of the member that borrowed it.
+    * The checkout history will display the member even if the member was deleted and is no longer an active member.       For currently checked out books it provides admin an option to return the book on behalf of the member that borrowed it.
   * <b><u>Manage Members</u></b>: 
     * Displays a list of all library members with their profile details (except their passwords) and the number of their active checkouts. 
     * The same page provides deletion of a user through checkboxes. 
