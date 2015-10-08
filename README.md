@@ -33,7 +33,6 @@ Following are the things that are already setup :
     * The admin can view current book suggestions by members and other admins. 
     * This view also lets admin to "approve" or "delete" a book suggestion. By approving the book suggestion, the book gets added to the library book catalogue. The admin can edit the book details during adding it to the catalogue.
   * <b>View Waitlist: </b> The admin can view current waitlist
-
 * <b>Member Basic:</b> 
   * Anyone can signup to become a member. He is automatically logged in after singup.He can update his password and name (email update is not allowed).
 * <b>Member Others: </b>
@@ -46,6 +45,12 @@ Following are the things that are already setup :
     * Member can view his/her checkout history with dates. For a currently checked-out book, the page provides an option to return.
   * <b><u>View suggestions</u></b>: 
     * Member can view the present suggestions before suggesting a new book through catalogue page. It is a read-only view to ensure that there are no duplicate book suggestions in the system.
+* <b> Centralized Login </b>
+   * A user account is identified by the emailID, with which it is registered on LibSys.
+ * <b> Member Account -> Adding the 'admin' role : </b>
+   * Sign in as an admin . A member account can be given an admin role by following: Admin Homepage -> Manage Members -> "Make Admin" for the corresponding member account
+ * <b> Admin account -> Adding the 'member' role : </b>
+   * Regular "Sign up" functionality: Upon entering the details, the system redirects the user to the login page and asks the user to use the original password with which the 'admin' account was created. ( and then login with either of the two roles)
 
 <li>Extra Credit features</li>
 <ul>
