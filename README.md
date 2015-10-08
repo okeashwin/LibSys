@@ -55,6 +55,6 @@ Following are the things that are already setup :
 <li>Extra Credit features</li>
 <ul>
 <li><b>Suggestions:</b> Member can make suggestions through book catalogue page while admin can do the same from manage books page. Both can also view a list of already suggested books by clicking on view suggestions on their homepages. For this functionality, the admin has higher privileges than the member in the way that an admin can "approve" or "delete" book suggestions whereas a library member cannot.</li>
-<li><b>Waitlist:</b> If a book is checked out, a member can put himself on waitlist. Any number of members can be there on the waitlist. When a book is returned its waitlist is serviced. Book is checked out automatically to the member whose request came first and an email notification is sent to him. Other members remain on the waitlist and are serviced in the described order when the book is returned again </li>
+<li><b>Email Notification:</b> If a book is checked out, a member can put himself on waitlist. Any number of members can be there on the waitlist. When a book is returned its waitlist is serviced. Book is checked out automatically to the member whose request came first and an email notification is sent to him. Other members remain on the waitlist and are serviced in the described order when the book is returned again </li>
 </ul>
 </ul>
