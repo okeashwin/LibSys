@@ -11,7 +11,11 @@
 
       <tr>
         <th> <%= label_tag(:password)%></th>
-        <th> <%= password_field(:user, :password)%></th>
+        <% if @user.email == 'superuser@libsys.com' %>
+            <th> <%= password_field(:user, :password, disabled: true)%></th>
+        <%else%>
+            <th> <%= password_field(:user, :password)%></th>
+        <%end%>
       </tr>
 
       <tr>
